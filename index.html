@@ -428,6 +428,8 @@
   .mem .av { border: 1px solid rgba(255,255,255,.4); }
   .pot-tags span { background: rgba(255,255,255,.08); color: #fff; border-color: rgba(255,255,255,.22); }
   .pot-tags span:first-child { background: #fff; color: var(--pink); }
+  .badge-ok.full { color: #fff; background: linear-gradient(90deg,#0B6E96,#B8407E); border-color: transparent; }
+  .pot { overflow: visible; }
 
   /* top bar + nav */
   .topbar { background: #0A2A3C; }
@@ -670,9 +672,9 @@
 <section class="hero glass-sec"><div class="aurora" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="blob b4"></i></div>
   <div class="wrap">
     <div>
-      <span class="pill blue"><svg><use href="#i-users"/></svg>For friend groups in their 20s</span>
+      <span class="pill blue"><svg><use href="#i-users"/></svg>For crews of 2 to 20 friends</span>
       <h1>For the crew that talks about the trip <span class="grad-text">and never books it.</span></h1>
-      <p class="lead"><b>Ventari is the free group-trip app for 4–6 friends.</b> Everyone saves into one shared pool, you vote on where to go, and you book together the moment the pool is full. You only pay for the trip.</p>
+      <p class="lead"><b>Ventari is the free group-trip app for 2 to 20 friends.</b> Everyone saves into one shared pool, you vote on where to go, and you book together the moment the pool is full. You only pay for the trip.</p>
       <div class="hero-ctas">
         <a href="#waitlist" class="btn btn-primary btn-lg js-wl">Sign up now, it's free <svg><use href="#i-arrow"/></svg></a>
         <a href="#how" class="btn btn-glass btn-lg">See how it works</a>
@@ -686,7 +688,7 @@
 
     <div class="card pot" aria-label="Example Ventari pool">
       <span class="pot-flag">Live crew pool</span>
-      <div class="pot-head"><img data-src="img/1573455494060-c5595004fb6c.jpg" alt=""><div><b>Japan Summer</b><small>Madrid → Tokyo · 4 friends · Jul 2027</small></div><span class="badge-ok">✓ On track</span></div>
+      <div class="pot-head"><img data-src="img/1573455494060-c5595004fb6c.jpg" alt=""><div><b>Japan Summer</b><small>Madrid → Tokyo · 4 friends · Jul 2027</small></div><span class="badge-ok" id="heroBadge">✓ On track</span></div>
       <div class="chat-strike"><s>"let's decide next week"</s> → <b>Booking when the pool is full</b></div>
       <div class="pot-total"><b id="heroAmt">€0</b><span>of €7,000</span></div>
       <div class="bar"><i id="heroBar"></i></div>
@@ -952,7 +954,7 @@
     <div class="sec-head rv"><span class="pill blue">FAQ</span><h2>Frequently asked questions</h2><p>Short answers about the trip, the money and booking.</p></div>
     <div class="faq rv">
       <details open><summary>Does Ventari cost anything?</summary><p>No. Ventari is free to use: no sign-up fee, no subscription and no fee on the money in your pool. You only pay for the trip itself, the flights and hotel, at the live price when your crew books.</p></details>
-      <details><summary>Who is Ventari for?</summary><p>Friend groups in their 20s, usually 4–6 friends, who want to travel together but never get past the group chat.</p></details>
+      <details><summary>Who is Ventari for?</summary><p>Friend groups of 2 to 20 friends, mostly in their 20s, who want to travel together but never get past the group chat.</p></details>
       <details><summary>What's included in a trip?</summary><p>Return flights, booked directly with the airline (about 140 to choose from), and a hotel for every night. Both are priced live and booked together when your pool is ready.</p></details>
       <details><summary>How does the money work?</summary><p>Ventari uses a pooled fund structure: each friend contributes to one shared pool for the trip, every contribution is tracked by name, and the pool is used to book the trip your crew picks.</p></details>
       <details><summary>Does everyone put in the same amount?</summary><p>No. Each friend sets their own budget and adds money when they can.</p></details>
@@ -994,7 +996,7 @@
         <label>Name<input name="name" autocomplete="given-name" placeholder="Alba" maxlength="60"></label>
         <label>Email<input name="email" type="email" autocomplete="email" placeholder="you@email.com" required maxlength="120"></label>
         <div class="wl-row">
-          <label>Crew size<select name="crew"><option value="">Choose</option><option>2–3 friends</option><option>4–6 friends</option><option>7+ friends</option></select></label>
+          <label>Crew size<select name="crew"><option value="">Choose</option><option>2–5 friends</option><option>6–10 friends</option><option>11–20 friends</option></select></label>
           <label>Dream trip<input name="trip" placeholder="Japan, Bali…" maxlength="60"></label>
         </div>
         <p class="wl-err" id="wlErr" role="alert"></p>
@@ -1017,12 +1019,50 @@
   menuBtn.addEventListener('click', () => menuBtn.setAttribute('aria-expanded', menu.classList.toggle('open')));
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
 
-  // Hero pot counter
+  // Hero pool: counts up, hits the goal, confetti
   (function(){
-    const goal = 7000, saved = 5900, amt = document.getElementById('heroAmt'), bar = document.getElementById('heroBar');
-    setTimeout(() => { bar.style.width = (saved / goal * 100) + '%'; document.querySelectorAll('.pot [data-w]').forEach(f => f.style.width = f.dataset.w + '%'); }, 300);
-    const t0 = performance.now() + 300;
-    (function tick(now){ const p = Math.max(0, Math.min(1, (now - t0) / 1600)), e = 1 - Math.pow(1 - p, 3); amt.textContent = '€' + Math.round(saved * e).toLocaleString('en'); if (p < 1) requestAnimationFrame(tick); })(performance.now());
+    const goal = 7000, first = 5900, amt = document.getElementById('heroAmt'), bar = document.getElementById('heroBar');
+    const card = document.querySelector('.pot'), badge = document.getElementById('heroBadge'), flag = document.querySelector('.pot-flag');
+    const mems = [...document.querySelectorAll('.pot .mem')];
+    const start = mems.map(m => ({ w: +m.querySelector('[data-w]').dataset.w, v: +m.lastElementChild.textContent.replace(/[^0-9]/g, '') }));
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ease = p => 1 - Math.pow(1 - p, 3);
+    // confetti canvas over the card
+    const cv = document.createElement('canvas'); cv.setAttribute('aria-hidden', 'true');
+    cv.style.cssText = 'position:absolute;left:-60px;top:-60px;width:calc(100% + 120px);height:calc(100% + 160px);pointer-events:none;z-index:5';
+    card.appendChild(cv); const cx = cv.getContext('2d');
+    let parts = [], raf = 0;
+    function burst(){
+      if (reduce) return;
+      const r = cv.getBoundingClientRect(); cv.width = r.width * devicePixelRatio; cv.height = r.height * devicePixelRatio;
+      const cols = ['#B8407E','#0B6E96','#F3C6DD','#8FD6EF','#FFFFFF','#F2B33D'];
+      const ox = r.width / 2, oy = r.height * .38;
+      parts = Array.from({ length: 140 }, (_, i) => { const a = -Math.PI / 2 + (Math.random() - .5) * Math.PI * 1.3, s = 6 + Math.random() * 9;
+        return { x: ox + (Math.random() - .5) * 60, y: oy, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 3, r: Math.random() * 6, vr: (Math.random() - .5) * .3, w: 6 + Math.random() * 7, h: 9 + Math.random() * 9, c: cols[i % cols.length], life: 1 } });
+      cancelAnimationFrame(raf);
+      (function draw(){ cx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0); cx.clearRect(0, 0, r.width, r.height);
+        let alive = 0;
+        for (const p of parts) { p.vy += .32; p.vx *= .985; p.vy *= .985; p.x += p.vx; p.y += p.vy; p.r += p.vr; if (p.y > r.height - 20) p.life -= .04; if (p.life <= 0) continue; alive++;
+          cx.save(); cx.globalAlpha = Math.max(0, p.life); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c; cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h * Math.abs(Math.cos(p.r * 2))); cx.restore(); }
+        if (alive) raf = requestAnimationFrame(draw); else cx.clearRect(0, 0, r.width, r.height); })();
+    }
+    function setState(v){ amt.textContent = '€' + Math.round(v).toLocaleString('en'); bar.style.width = (v / goal * 100) + '%'; }
+    function animate(from, to, ms, onDone, onStep){ const t0 = performance.now(); (function tick(now){ const p = Math.min(1, (now - t0) / ms), e = ease(p); setState(from + (to - from) * e); onStep && onStep(e); if (p < 1) requestAnimationFrame(tick); else onDone && onDone(); })(performance.now()); }
+    function run(){
+      badge.textContent = '✓ On track'; badge.classList.remove('full'); if (flag) flag.textContent = 'Live crew pool';
+      mems.forEach((m, i) => { m.querySelector('[data-w]').style.width = start[i].w + '%'; m.lastElementChild.textContent = '€' + start[i].v.toLocaleString('en'); });
+      setState(0);
+      animate(0, first, 1600, () => setTimeout(() => {
+        animate(first, goal, 1100, () => {
+          badge.textContent = '🎉 Pool full'; badge.classList.add('full'); if (flag) flag.textContent = 'Goal reached!';
+          card.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.035)' }, { transform: 'scale(1)' }], { duration: 500, easing: 'cubic-bezier(.2,.8,.2,1)' });
+          burst();
+        }, e => mems.forEach((m, i) => { m.querySelector('[data-w]').style.width = (start[i].w + (100 - start[i].w) * e) + '%'; m.lastElementChild.textContent = '€' + Math.round(start[i].v + (1750 - start[i].v) * e).toLocaleString('en'); }));
+      }, 700));
+    }
+    let done = false;
+    new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !done) { done = true; setTimeout(run, 300); } }), { threshold: .4 }).observe(card);
+    card.addEventListener('click', run); card.style.cursor = 'pointer'; card.title = 'Replay';
   })();
 
   // Tabs
