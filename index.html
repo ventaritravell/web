@@ -636,6 +636,23 @@
   .star.on { color: #fff; background: linear-gradient(135deg,#0B6E96,#B8407E); border-color: transparent; }
   @media (max-width: 640px) { .rv-row { grid-template-columns: 1fr; } #rvF { padding: 26px 20px !important; } .star { width: 48px; height: 48px; } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .rv { opacity: 1; transform: none; } }
+/* prototype note + instagram */
+  .cd-note { margin: 18px auto 0; font-size: 14px; color: rgba(255,255,255,.75); max-width: 460px; }
+  .ig-btn { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding: 11px 20px; border-radius: 999px; color: #fff; font-weight: 700; font-size: 15px; background: linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.06)); border: 1.5px solid rgba(255,255,255,.35); backdrop-filter: blur(12px); transition: transform .2s, background .2s; }
+  .ig-btn:hover { transform: translateY(-2px); background: linear-gradient(135deg, rgba(255,255,255,.32), rgba(255,255,255,.1)); }
+  .ig-btn svg, .ig-foot svg { width: 20px; height: 20px; }
+  .ig-foot { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink); }
+  .ig-foot:hover { color: var(--pink); }
+  /* testimonial */
+  .tst { position: relative; overflow: hidden; margin: 0; padding: 52px 56px 44px; border-radius: 32px; background: linear-gradient(135deg, rgba(234,242,245,.95), rgba(245,238,241,.95)); }
+  .tst::after { content: ""; position: absolute; right: -90px; top: -90px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(194,69,127,.18), transparent 70%); pointer-events: none; }
+  .tst-mark { position: absolute; right: 48px; top: 6px; font-family: var(--display); font-size: 190px; line-height: 1; font-weight: 800; background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; opacity: .35; }
+  .tst blockquote { position: relative; margin: 20px 0 28px; font-family: var(--display); font-weight: 500; font-size: clamp(22px, 3vw, 34px); line-height: 1.25; letter-spacing: -.02em; max-width: 900px; color: var(--ink); }
+  .tst figcaption { display: flex; align-items: center; gap: 14px; }
+  .tst figcaption b { display: block; font-size: 17px; }
+  .tst figcaption small { color: var(--muted); font-size: 14px; }
+  .tst-av { width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: #fff; font-family: var(--display); font-weight: 800; font-size: 22px; box-shadow: 0 8px 20px rgba(194,69,127,.25); }
+  @media (max-width: 640px) { .tst { padding: 34px 22px 28px; } .tst-mark { font-size: 120px; right: 20px; } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -657,7 +674,7 @@
 
 <!-- TOP BAR -->
 <div class="topbar"><div class="wrap">
-  <span>Early access for travelers opens in</span>
+  <span>Early access to the Ventari prototype opens in</span>
   <span class="tb-cd" data-cd><span data-u="d">00</span>d<span data-u="h">00</span>h<span data-u="m">00</span>m<span data-u="s">00</span>s</span>
   <a href="#waitlist" class="tb-btn js-wl">Sign up now</a>
 </div></div>
@@ -946,6 +963,18 @@
   </div>
 </section>
 
+<!-- TESTIMONIAL -->
+<section class="sec" id="testimonial" style="padding-bottom:0">
+  <div class="wrap">
+    <figure class="card tst rv">
+      <span class="pill pink">What friends say</span>
+      <div class="tst-mark" aria-hidden="true">“</div>
+      <blockquote>We used to have a travel group, but it doesn't exist anymore. It would be amazing if this turned into an app; <span class="grad-text">about 10 friends and I would join in a heartbeat.</span></blockquote>
+      <figcaption><span class="tst-av">W</span><span><b>William M.</b><small>Future Ventari crew of 10</small></span></figcaption>
+    </figure>
+  </div>
+</section>
+
 <!-- MWR -->
 <section class="sec" id="exclusive" style="padding-bottom:0">
   <div class="wrap">
@@ -983,10 +1012,12 @@
   <div class="wrap">
     <span class="pill blue" style="color:#8FD6EF;background:rgba(143,214,239,.12)">Get started</span>
     <h2>The trip you keep talking about.<br><span style="color:#F3C6DD">Book it this time.</span></h2>
-    <p>Ventari is free and launching soon. Sign up now and be first to start a pool with your crew.</p>
-    <div class="hero-ctas"><a href="#waitlist" class="btn btn-primary btn-lg js-wl">Sign up now, it's free</a><a href="#how" class="btn btn-glass btn-lg">See how it works</a></div>
-    <div class="cd-lbl">Early access for travelers opens in</div>
+    <p>Sign up now for early access to the Ventari prototype: try it with your crew before anyone else and help us shape the app. It's free.</p>
+    <div class="hero-ctas"><a href="#waitlist" class="btn btn-primary btn-lg js-wl">Get prototype access, it's free</a><a href="#how" class="btn btn-glass btn-lg">See how it works</a></div>
+    <div class="cd-lbl">Early access to the prototype opens in</div>
     <div class="cd" data-cd><div><b data-u="d">00</b><small>DAYS</small></div><div><b data-u="h">00</b><small>HOURS</small></div><div><b data-u="m">00</b><small>MIN</small></div><div><b data-u="s">00</b><small>SEC</small></div></div>
+    <p class="cd-note">The full app launch gets its own countdown soon. Follow us so you don't miss it.</p>
+    <a class="ig-btn" href="https://www.instagram.com/ventari.travel/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg>@ventari.travel</a>
   </div>
 </section>
 
@@ -1014,6 +1045,7 @@
 <footer><div class="wrap">
   <a href="#" class="logo" style="font-size:18px"><span class="logo-mark" style="width:30px;height:30px"><img data-src="img/ventari-logo-128.png" alt=""></span>Ventari</a>
   <nav><a href="#how">How it works</a><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#trips">Trips</a><a href="#faq">FAQ</a></nav>
+  <a class="ig-foot" href="https://www.instagram.com/ventari.travel/" target="_blank" rel="noopener noreferrer" aria-label="Ventari on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg>@ventari.travel</a>
   <span>© 2026 Ventari · Photos from Unsplash</span>
 </div></footer>
 
@@ -1022,9 +1054,9 @@
   <div class="card wl" role="dialog" aria-modal="true" aria-labelledby="wlTitle">
     <button class="wl-x" id="wlClose" type="button" aria-label="Close">×</button>
     <div id="wlForm">
-      <span class="pill blue">Early access · Free</span>
-      <h3 id="wlTitle">Sign up for Ventari</h3>
-      <p class="wl-sub">Be first to start a pool with your crew. Ventari is free: you only pay for the trip itself. No spam.</p>
+      <span class="pill blue">Prototype early access · Free</span>
+      <h3 id="wlTitle">Try the Ventari prototype</h3>
+      <p class="wl-sub">Get early access to the prototype and start a pool with your crew before the full launch. Ventari is free: you only pay for the trip itself. No spam.</p>
       <form id="wlF" novalidate>
         <label>Name<input name="name" autocomplete="given-name" placeholder="Alba" maxlength="60"></label>
         <label>Email<input name="email" type="email" autocomplete="email" placeholder="you@email.com" required maxlength="120"></label>
