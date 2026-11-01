@@ -623,6 +623,18 @@
   @media (max-width: 560px) { .plan-free, .pay-card, .never-card { padding: 26px 20px; } .pf-list, .never-card ul { grid-template-columns: 1fr; } .pf-price b { font-size: 76px; } }
   .pricing2 .price-grid { max-width: none; }
 
+
+  /* ---- review ---- */
+  #review { padding-top: 90px; }
+  #rvF label { display: grid; gap: 8px; font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 16px; }
+  #rvF input[type=text], #rvF input:not([type]), #rvF textarea { font: 500 16px var(--font); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; outline: none; resize: vertical; }
+  #rvF input:focus, #rvF textarea:focus { border-color: var(--blue); background: #fff; }
+  .rv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .rv-check { display: flex !important; grid-template-columns: none; align-items: center; gap: 10px !important; font-weight: 600 !important; color: var(--muted) !important; }
+  .star { width: 54px; height: 54px; border-radius: 14px; border: 1px solid var(--line); background: #fff; font-size: 30px; color: #D3D7DC; cursor: pointer; transition: transform .15s, color .15s, background .15s; }
+  .star:hover { transform: translateY(-2px); }
+  .star.on { color: #fff; background: linear-gradient(135deg,#0B6E96,#B8407E); border-color: transparent; }
+  @media (max-width: 640px) { .rv-row { grid-template-columns: 1fr; } #rvF { padding: 26px 20px !important; } .star { width: 48px; height: 48px; } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .rv { opacity: 1; transform: none; } }
 </style>
 
@@ -978,6 +990,27 @@
   </div>
 </section>
 
+<!-- REVIEW -->
+<section class="sec" id="review">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="pill pink">Already tried Ventari?</span><h2>Leave us a <span class="grad-text">review.</span></h2><p>Tell us how your crew's trip went. It goes straight to the Ventari team.</p></div>
+    <form class="card rv" id="rvF" novalidate style="max-width:760px;margin:0 auto;padding:40px">
+      <div style="text-align:center;margin-bottom:22px">
+        <div class="sub" style="font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Your rating</div>
+        <div id="stars" role="radiogroup" aria-label="Rating" style="display:inline-flex;gap:10px;margin-top:10px">
+          <button type="button" class="star" data-v="1" aria-label="1 star">★</button><button type="button" class="star" data-v="2" aria-label="2 stars">★</button><button type="button" class="star" data-v="3" aria-label="3 stars">★</button><button type="button" class="star" data-v="4" aria-label="4 stars">★</button><button type="button" class="star" data-v="5" aria-label="5 stars">★</button>
+        </div>
+      </div>
+      <div class="rv-row"><label>Name<input name="name" maxlength="60" placeholder="Alba"></label><label>Where did your crew go?<input name="trip" maxlength="60" placeholder="Tokyo, Lisbon…"></label></div>
+      <label>Your review<textarea name="msg" rows="4" maxlength="800" placeholder="How did saving, voting and booking go for your crew?"></textarea></label>
+      <label class="rv-check"><input type="checkbox" name="ok" checked> You can show my review on the Ventari website</label>
+      <p class="wl-err" id="rvErr" role="alert"></p>
+      <button class="btn btn-primary btn-lg" type="submit" style="width:100%">Send review</button>
+      <div id="rvDone" hidden style="text-align:center;padding:10px 0"><div style="font-size:54px">💌</div><h3 style="font-size:30px;margin:8px 0">Thank you!</h3><p class="sub" id="rvDoneTxt" style="color:var(--muted)">Your email app is opening with your review. Hit send and it reaches us.</p></div>
+    </form>
+  </div>
+</section>
+
 <footer><div class="wrap">
   <a href="#" class="logo" style="font-size:18px"><span class="logo-mark" style="width:30px;height:30px"><img data-src="img/ventari-logo-128.png" alt=""></span>Ventari</a>
   <nav><a href="#how">How it works</a><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#trips">Trips</a><a href="#faq">FAQ</a></nav>
@@ -1106,6 +1139,22 @@
     tick(); setInterval(tick, 1000);
   })();
 
+  // Review form -> opens a pre-filled email to the Ventari team
+  (function(){
+    const f = document.getElementById('rvF'), err = document.getElementById('rvErr'); let rating = 0;
+    const stars = [...document.querySelectorAll('.star')];
+    const paint = n => stars.forEach(s => s.classList.toggle('on', +s.dataset.v <= n));
+    stars.forEach(s => { s.addEventListener('click', () => { rating = +s.dataset.v; paint(rating); err.textContent = ''; s.setAttribute('aria-checked', 'true'); });
+      s.addEventListener('mouseenter', () => paint(+s.dataset.v)); s.addEventListener('mouseleave', () => paint(rating)); });
+    f.addEventListener('submit', e => { e.preventDefault();
+      if (!rating) { err.textContent = 'Please choose a star rating.'; return; }
+      if (f.elements['msg'].value.trim().length < 3) { err.textContent = 'Please write a few words about your trip.'; f.elements['msg'].focus(); return; }
+      const body = `Rating: ${'★'.repeat(rating)}${'☆'.repeat(5 - rating)} (${rating}/5)\nName: ${f.elements['name'].value.trim() || '-'}\nTrip: ${f.elements['trip'].value.trim() || '-'}\nCan be shown on the website: ${f.elements['ok'].checked ? 'Yes' : 'No'}\n\n${f.elements['msg'].value.trim()}`;
+      location.href = `mailto:ventariteam@gmail.com?subject=${encodeURIComponent('Ventari review ' + rating + '/5')}&body=${encodeURIComponent(body)}`;
+      [...f.children].forEach(c => { if (c.id !== 'rvDone') c.style.display = 'none'; }); document.getElementById('rvDone').hidden = false;
+    });
+  })();
+
   // Waitlist
   (function(){
     const TEAM = 'ventariteam@gmail.com';
@@ -1126,7 +1175,7 @@
     }
     f.addEventListener('submit', async e => {
       e.preventDefault(); err.textContent = '';
-      const d = { name: f.name.value.trim(), email: f.email.value.trim(), crew: f.crew.value, trip: f.trip.value.trim() };
+      const d = { name: f.name.value.trim(), email: f.email.value.trim(), crew: f.crew.value, trip: f.elements['trip'].value.trim() };
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { err.textContent = 'Please enter a valid email.'; f.email.focus(); return; }
       const btn = document.getElementById('wlGo'); btn.disabled = true; btn.textContent = 'Signing up…';
       let saved = false;
