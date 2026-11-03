@@ -627,7 +627,7 @@
   /* ---- review ---- */
   #review { padding-top: 90px; }
   #rvF label { display: grid; gap: 8px; font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 16px; }
-  #rvF input[type=text], #rvF input:not([type]), #rvF textarea { font: 500 16px var(--font); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; outline: none; resize: vertical; }
+  #rvF input[type=text], #rvF input[type=email], #rvF input:not([type]), #rvF textarea { font: 500 16px var(--font); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; outline: none; resize: vertical; }
   #rvF input:focus, #rvF textarea:focus { border-color: var(--blue); background: #fff; }
   .rv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .rv-check { display: flex !important; grid-template-columns: none; align-items: center; gap: 10px !important; font-weight: 600 !important; color: var(--muted) !important; }
@@ -674,9 +674,9 @@
 
 <!-- TOP BAR -->
 <div class="topbar"><div class="wrap">
-  <span>Early access to the Ventari prototype opens in</span>
+  <span>Prototype early access is open! &nbsp;·&nbsp; Full app launch in</span>
   <span class="tb-cd" data-cd><span data-u="d">00</span>d<span data-u="h">00</span>h<span data-u="m">00</span>m<span data-u="s">00</span>s</span>
-  <a href="#waitlist" class="tb-btn js-wl">Sign up now</a>
+  <a href="#waitlist" class="tb-btn js-wl">Try the prototype free</a>
 </div></div>
 
 <!-- NAV -->
@@ -703,9 +703,9 @@
     <div>
       <span class="pill blue"><svg><use href="#i-users"/></svg>For crews of 2 to 20 friends</span>
       <h1>For the crew that talks about the trip <span class="grad-text">and never books it.</span></h1>
-      <p class="lead"><b>Ventari is the free group-trip app for 2 to 20 friends.</b> Everyone saves into one shared pool, you vote on where to go, and you book together the moment the pool is full. You only pay for the trip.</p>
+      <p class="lead"><b>Ventari is the group-trip app for 2 to 20 friends.</b> Everyone saves into one shared pool, you vote on where to go, and you book together the moment the pool is full. <b>The prototype is open now: sign up for free early access</b> and try it with your crew before the full app launches.</p>
       <div class="hero-ctas">
-        <a href="#waitlist" class="btn btn-primary btn-lg js-wl">Sign up now, it's free <svg><use href="#i-arrow"/></svg></a>
+        <a href="#waitlist" class="btn btn-primary btn-lg js-wl">Try the prototype, it's free <svg><use href="#i-arrow"/></svg></a>
         <a href="#how" class="btn btn-glass btn-lg">See how it works</a>
       </div>
       <div class="stats">
@@ -969,6 +969,7 @@
     <figure class="card tst rv">
       <span class="pill pink">What friends say</span>
       <div class="tst-mark" aria-hidden="true">“</div>
+      <p style="position:relative;margin:18px 0 0;max-width:820px;font-size:17px;line-height:1.55;color:var(--muted)">William and his friends kept a travel group going for 4 or 5 years. They tried everything to keep it together: WhatsApp groups, an Instagram page, even the WeFounder app. But with everything spread across different places, the group slowly fell apart. That's why we built Ventari: one place that keeps the crew together.</p>
       <blockquote>We used to have a travel group, but it doesn't exist anymore. It would be amazing if this turned into an app; <span class="grad-text">about 10 friends and I would join in a heartbeat.</span></blockquote>
       <figcaption><span class="tst-av">W</span><span><b>William M.</b><small>Future Ventari crew of 10</small></span></figcaption>
     </figure>
@@ -1012,11 +1013,11 @@
   <div class="wrap">
     <span class="pill blue" style="color:#8FD6EF;background:rgba(143,214,239,.12)">Get started</span>
     <h2>The trip you keep talking about.<br><span style="color:#F3C6DD">Book it this time.</span></h2>
-    <p>Sign up now for early access to the Ventari prototype: try it with your crew before anyone else and help us shape the app. It's free.</p>
+    <p>Early access to the Ventari prototype is open now. Sign up for free, try it with your crew and help us shape the real app before it launches.</p>
     <div class="hero-ctas"><a href="#waitlist" class="btn btn-primary btn-lg js-wl">Get prototype access, it's free</a><a href="#how" class="btn btn-glass btn-lg">See how it works</a></div>
-    <div class="cd-lbl">Early access to the prototype opens in</div>
+    <div class="cd-lbl">The full Ventari app launches in</div>
     <div class="cd" data-cd><div><b data-u="d">00</b><small>DAYS</small></div><div><b data-u="h">00</b><small>HOURS</small></div><div><b data-u="m">00</b><small>MIN</small></div><div><b data-u="s">00</b><small>SEC</small></div></div>
-    <p class="cd-note">The full app launch gets its own countdown soon. Follow us so you don't miss it.</p>
+    <p class="cd-note">The prototype is already open. Follow us so you don't miss the launch of the real app.</p>
     <a class="ig-btn" href="https://www.instagram.com/ventari.travel/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg>@ventari.travel</a>
   </div>
 </section>
@@ -1033,11 +1034,12 @@
         </div>
       </div>
       <div class="rv-row"><label>Name<input name="name" maxlength="60" placeholder="Alba"></label><label>Where did your crew go?<input name="trip" maxlength="60" placeholder="Tokyo, Lisbon…"></label></div>
+      <label>Your email (optional, so we can reply)<input name="email" type="email" maxlength="120" placeholder="you@email.com"></label>
       <label>Your review<textarea name="msg" rows="4" maxlength="800" placeholder="How did saving, voting and booking go for your crew?"></textarea></label>
       <label class="rv-check"><input type="checkbox" name="ok" checked> You can show my review on the Ventari website</label>
       <p class="wl-err" id="rvErr" role="alert"></p>
       <button class="btn btn-primary btn-lg" type="submit" style="width:100%">Send review</button>
-      <div id="rvDone" hidden style="text-align:center;padding:10px 0"><div style="font-size:54px">💌</div><h3 style="font-size:30px;margin:8px 0">Thank you!</h3><p class="sub" id="rvDoneTxt" style="color:var(--muted)">Your email app is opening with your review. Hit send and it reaches us.</p></div>
+      <div id="rvDone" hidden style="text-align:center;padding:10px 0"><div style="font-size:54px">💌</div><h3 style="font-size:30px;margin:8px 0">Thank you!</h3><p class="sub" id="rvDoneTxt" style="color:var(--muted)">Your review has been sent to the Ventari team. We read every single one.</p></div>
     </form>
   </div>
 </section>
@@ -1071,7 +1073,7 @@
     <div id="wlDone" hidden>
       <span class="pill pink">You're in</span>
       <h3>See you on the trip.</h3>
-      <p class="wl-sub" id="wlDoneTxt">Check your inbox for a welcome email. Tell your crew so they're ready too.</p>
+      <p class="wl-sub" id="wlDoneTxt">You're on the list! We'll email you your prototype access soon. Tell your crew so they're ready too.</p>
       <button class="btn btn-primary" type="button" id="wlOk">Done</button>
     </div>
   </div>
@@ -1161,7 +1163,7 @@
 
   // Launch countdown
   (function(){
-    const LAUNCH = new Date('2026-11-01T20:00:00+01:00').getTime();
+    const LAUNCH = new Date('2027-02-01T20:00:00+01:00').getTime(); // full app launch: 90 days after 3 Nov 2026
     const boxes = [...document.querySelectorAll('[data-cd]')], pad = n => String(n).padStart(2, '0');
     function tick(){
       const ms = Math.max(0, LAUNCH - Date.now());
@@ -1171,7 +1173,13 @@
     tick(); setInterval(tick, 1000);
   })();
 
-  // Review form -> opens a pre-filled email to the Ventari team
+  // Sends form data to the Ventari inbox (ventariteam@gmail.com) via FormSubmit
+  function sendForm(data){
+    return fetch('https://formsubmit.co/ajax/ventariteam@gmail.com', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
+      .then(r => r.json()).then(j => j && (j.success === true || j.success === 'true')).catch(() => false);
+  }
+
+  // Review form -> sends the review to the Ventari inbox
   (function(){
     const f = document.getElementById('rvF'), err = document.getElementById('rvErr'); let rating = 0;
     const stars = [...document.querySelectorAll('.star')];
@@ -1182,8 +1190,15 @@
       if (!rating) { err.textContent = 'Please choose a star rating.'; return; }
       if (f.elements['msg'].value.trim().length < 3) { err.textContent = 'Please write a few words about your trip.'; f.elements['msg'].focus(); return; }
       const body = `Rating: ${'★'.repeat(rating)}${'☆'.repeat(5 - rating)} (${rating}/5)\nName: ${f.elements['name'].value.trim() || '-'}\nTrip: ${f.elements['trip'].value.trim() || '-'}\nCan be shown on the website: ${f.elements['ok'].checked ? 'Yes' : 'No'}\n\n${f.elements['msg'].value.trim()}`;
-      location.href = `mailto:ventariteam@gmail.com?subject=${encodeURIComponent('Ventari review ' + rating + '/5')}&body=${encodeURIComponent(body)}`;
-      [...f.children].forEach(c => { if (c.id !== 'rvDone') c.style.display = 'none'; }); document.getElementById('rvDone').hidden = false;
+      const btn = f.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Sending…';
+      const em = f.elements['email'].value.trim();
+      const data = { _subject: 'New Ventari review ' + rating + '/5', _template: 'table', _captcha: 'false', Rating: rating + '/5 ' + '★'.repeat(rating), Name: f.elements['name'].value.trim() || '-', Email: em || '-', Trip: f.elements['trip'].value.trim() || '-', 'Show on website': f.elements['ok'].checked ? 'Yes' : 'No', Review: f.elements['msg'].value.trim() };
+      if (em) data._replyto = em;
+      sendForm(data).then(ok => {
+        btn.disabled = false; btn.textContent = 'Send review';
+        if (!ok) { err.textContent = 'Sorry, it didn\'t send. Please try again, or DM us on Instagram @ventari.travel.'; return; }
+        [...f.children].forEach(c => { if (c.id !== 'rvDone') c.style.display = 'none'; }); document.getElementById('rvDone').hidden = false;
+      });
     });
   })();
 
@@ -1210,14 +1225,9 @@
       const d = { name: f.name.value.trim(), email: f.email.value.trim(), crew: f.crew.value, trip: f.elements['trip'].value.trim() };
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) { err.textContent = 'Please enter a valid email.'; f.email.focus(); return; }
       const btn = document.getElementById('wlGo'); btn.disabled = true; btn.textContent = 'Signing up…';
-      let saved = false;
-      try {
-        const timeout = new Promise(r => setTimeout(() => r(null), 4000));
-        const db = dbP ? await Promise.race([dbP, timeout]) : null;
-        const user = userP ? await Promise.race([userP, timeout]) : null;
-        const uid = user ? await user.id() : null;
-        if (db && uid) { await db.doc('waitlist/' + uid).set({ ...d, joinedAt: new Date().toISOString() }); saved = true; }
-      } catch (x) { saved = false; }
+      const saved = await sendForm({ _subject: 'New Ventari prototype sign-up: ' + (d.name || d.email), _template: 'table', _captcha: 'false', _replyto: d.email,
+        _autoresponse: 'Welcome to Ventari! You\'re on the list for early access to the Ventari prototype. We\'ll send you your access soon. In the meantime, tell your crew and follow us on Instagram @ventari.travel. The Ventari team',
+        Name: d.name || '-', Email: d.email, 'Crew size': d.crew || '-', 'Dream trip': d.trip || '-' });
       btn.disabled = false; btn.textContent = 'Sign up now';
       document.getElementById('wlForm').hidden = true; document.getElementById('wlDone').hidden = false;
       if (!saved) { document.getElementById('wlDoneTxt').textContent = 'Almost there: your email app is opening with your details. Hit send and you’re on the list.'; viaEmail(d); }
